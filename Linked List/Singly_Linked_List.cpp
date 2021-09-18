@@ -176,7 +176,7 @@ Node *deleteByValue(Node *startNode)
     int value;
     cout << "Enter the value of node  you want to delete:";
     cin >> value;
-    if (startNode->data = value)
+    if (startNode->data == value)
     {
         startNode = startNode->next;
         delete ptr;
@@ -187,18 +187,17 @@ Node *deleteByValue(Node *startNode)
     {
         ptr = ptr->next;
     }
-    if (ptr == NULL)
+    if (ptr->next == NULL)
     {
         cout << "Node does not exist!" << endl;
-        return startNode;
     }
     else
     {
         Node *temp = ptr->next;
-        ptr->next = temp->next;
+        ptr->next = ptr->next->next;
         delete temp;
-        return startNode;
     }
+    return startNode;
 }
 
 //replace node
@@ -239,7 +238,7 @@ Node *search(Node *startNode)
             return startNode;
         }
         ptr = ptr->next;
-        count ++;
+        count++;
     }
     cout << "Linked list don't have node :" << value << endl;
     return startNode;
@@ -266,11 +265,11 @@ int main()
     // print(head);
     // head = deletion(head);
     // print(head);
-    // head = deleteByValue(head);
-    // print(head);
+    head = deleteByValue(head);
+    print(head);
     // head = replace(head);
     // print(head);
-    head = search(head);
-    print(head);
+    // head = search(head);
+    // print(head);
     return 0;
 }
