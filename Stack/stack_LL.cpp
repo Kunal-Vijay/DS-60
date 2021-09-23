@@ -12,7 +12,7 @@ class Stack
 {
 public:
     Node *top;
-    Stack() { top == NULL; }
+    Stack() { top = NULL; }
     void push(int x);
     void pop();
     void peek();
@@ -55,7 +55,18 @@ void Stack::peek()
     cout << top->data << endl;
 }
 
-
+void Stack::show()
+{
+    cout << "Stack:";
+    Node *ptr = new Node();
+    ptr = top;
+    for (int i = 1; ptr != NULL; i++)
+    {
+        cout << ptr->data << " ";
+        ptr = ptr->next;
+    }
+    cout << endl;
+}
 
 int main()
 {
@@ -71,5 +82,6 @@ int main()
     s.pop();
     s.pop();
     s.peek();
+    s.show();
     return 0;
 }
