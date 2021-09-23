@@ -27,7 +27,7 @@ Stack::Stack()
 
 void Stack::push(int x)
 {
-    if (top==size-1)
+    if (top == size - 1)
     {
         cout << "Stack overflow" << endl;
     }
@@ -40,7 +40,7 @@ void Stack::push(int x)
 
 int Stack::pop()
 {
-    if (top==-1)
+    if (top == -1)
     {
         cout << "Stack Underflow" << endl;
         return -1;
@@ -92,50 +92,11 @@ bool Stack::isFull()
 int main()
 {
     Stack s;
-    int cmd;
-    // do
-    // {
-    //     cout << ">";
-    //     cin >> cmd;
-        s.push(5);
-        s.push(10);
-        s.push(15);
+    s.push(5);
+    s.push(10);
+    s.push(15);
 
-        cout<<s.peek()<<endl;
-        cout<<s.pop()<<endl;
-    //     switch (cmd)
-    //     {
-    //     case 1:
-    //         int x;
-    //         cout << "Enter value to push:";
-    //         cin >> x;
-    //         s.push(x);
-    //         break;
-
-    //     case 2:
-    //         cout << s.pop() << " is popped from the stack" << endl;
-    //         break;
-
-    //     case 3:
-    //         cout << "Peeked element" << s.peek() << endl;
-    //         break;
-    //     case 4:
-    //         cout << bool(s.isEmpty()) << endl;
-    //         break;
-    //     case 5:
-    //         cout << s.isFull() << endl;
-    //         break;
-
-    //     case 0:
-    //         exit(0);
-    //         break;
-
-    //     default:
-    //         cout << "Invalid operation! Pls select the operation again" << endl;
-    //         break;
-    //     }
-
-    // } while (cmd != 0);
-
+    cout << s.peek() << endl;
+    cout << s.pop() << endl;
     return 0;
 }
