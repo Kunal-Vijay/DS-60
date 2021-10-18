@@ -76,10 +76,47 @@ string infixToPostfix(string s)
     return postfix;
 }
 
+//Infix = Reverse string -> postfix -> reverse
+
+string reverse(string s){
+    stack<char> st;
+    string rev;
+    for (int i = 0; i < s.length(); i++)
+    {
+        st.push(s[i]);
+    }
+    while (!st.empty()) 
+    {
+        if (st.top()=='(')
+        {
+            rev+=")";
+        }
+        else if (st.top()==')')
+        {
+            rev+="(";
+        }
+        else
+        {
+            rev+=st.top();
+        }
+        st.pop();
+    }
+   return rev; 
+}
+
+string infixToPrefix(string s){
+    s=reverse(s);
+    string postfix=infixToPostfix(s);
+    string prefix = reverse(postfix);
+    return prefix;
+}
+
 int main()
 {
-    string infix = "x-y/z-k*d";
-    // string infix = "(a-b/c)*(a/k-l)";
-    cout << infixToPostfix(infix) << endl;
+    // string infix = "x-y/z-k*d";
+    string infix = "(a-b/c)*(a/k-l)";
+    cout << "Postfix:"<<infixToPostfix(infix) << endl;
+    cout << "Prefix:"<<infixToPrefix(infix) << endl;
+
     return 0;
 }
