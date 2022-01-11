@@ -69,15 +69,93 @@ void printTree(Treenode<int> *root)
     }
 }
 
+//count number of nodes in tree
+int numNodes(Treenode<int> *root)
+{
+    if (root == NULL)
+    {
+        return 0;
+    }
+
+    int ans = 1;
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        ans += numNodes(root->children[i]);
+    }
+    return ans;
+}
+
+//height of the tree
+int heightOfTree(Treenode<int> *root)
+{
+    if (root == NULL)
+    {
+        return 0;
+    }
+    int ans = 1;
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        if ((heightOfTree(root->children[i]) + 1) > ans)
+        {
+            ans = heightOfTree(root->children[i]) + 1;
+        }
+    }
+    return ans;
+}
+
+//print all nodes at level K
+void printLevelK(Treenode<int> *root, int k)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+
+    if (k == 0)
+    {
+        cout << root->data << endl;
+        return;
+    }
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        printLevelK(root->children[i], k - 1);
+    }
+}
+//count leaf nodes
+void leafNodes(Treenode<int> *root)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+    if (root->children.size() == 0)
+    {
+        cout << root->data << " ";
+        return;
+    }
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        leafNodes(root->children[i]);
+    }
+}
+
 int main()
 {
-    // Treenode<int> *root = new Treenode<int>(1);
-    // Treenode<int> *node1 = new Treenode<int>(2);
-    // Treenode<int> *node2 = new Treenode<int>(3);
-    // root->children.push_back(node1);
-    // root->children.push_back(node2);
+    Treenode<int> *root = new Treenode<int>(1);
+    Treenode<int> *node1 = new Treenode<int>(2);
+    Treenode<int> *node2 = new Treenode<int>(3);
+    root->children.push_back(node1);
+    root->children.push_back(node2);
     // Treenode<int> *root = takeinput();
-    Treenode<int> *root = takeInputLevelwise();
+    // Treenode<int> *root = takeInputLevelwise();
+    cout << "Number of nodes:" << numNodes(root) << endl;
+    cout << "Height of tree:" << heightOfTree(root) << endl;
+    int k = 1;
+    cout << "Nodes at level " << k << ":-" << endl;
+    cout << "leaf nodes:-" << endl;
+    leafNodes(root);
+    cout << endl;
+    printLevelK(root, k);
     printTree(root);
     return 0;
 }
