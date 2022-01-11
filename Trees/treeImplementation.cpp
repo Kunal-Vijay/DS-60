@@ -139,6 +139,43 @@ void leafNodes(Treenode<int> *root)
     }
 }
 
+//preorder tree traversal
+void preorder(Treenode<int> *root)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+    cout << root->data << " ";
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        preorder(root->children[i]);
+    }
+}
+
+//postorder tree traversal
+void postorder(Treenode<int> *root)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        postorder(root->children[i]);
+    }
+    cout << root->data << " ";
+}
+
+//deleting dynamically allocated tree (same as post order)
+void deleteTree(Treenode<int> *root)
+{
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        deleteTree(root->children[i]);
+    }
+    delete root;
+}
 int main()
 {
     Treenode<int> *root = new Treenode<int>(1);
@@ -157,5 +194,10 @@ int main()
     cout << endl;
     printLevelK(root, k);
     printTree(root);
+    cout << "\nPreorder traversal" << endl;
+    preorder(root);
+    cout << "\nPostorder traversal" << endl;
+    postorder(root);
+    deleteTree(root);
     return 0;
 }
