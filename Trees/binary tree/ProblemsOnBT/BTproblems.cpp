@@ -87,7 +87,15 @@ void printBTlevelWise(BinaryTreenode<int> *root)
     }
 }
 
-
+// Problem 1 - Count Nodes
+int countNodes(BinaryTreenode<int> *root)
+{
+    if (root == NULL)
+    {
+        return 0;
+    }
+    return 1 + countNodes(root->left) + countNodes(root->right);
+}
 int main()
 {
     BinaryTreenode<int> *root = takeInputLevelWise();
