@@ -80,6 +80,32 @@ BinaryTreenode<int> *takeInputLevelWise()
     return root;
 }
 
+void printBTlevelWise(BinaryTreenode<int> *root)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+    queue<BinaryTreenode<int> *> pendingNodes;
+    pendingNodes.push(root);
+    while (pendingNodes.size() != 0)
+    {
+        BinaryTreenode<int> *front = pendingNodes.front();
+        pendingNodes.pop();
+        cout << front->data << ":";
+        if (front->left != NULL)
+        {
+            cout << " L:" << front->left->data;
+            pendingNodes.push(front->left);
+        }
+        if (front->right != NULL)
+        {
+            cout << " R:" << front->right->data;
+            pendingNodes.push(front->right);
+        }
+        cout << endl;
+    }
+}
 int main()
 {
     // BinaryTreenode<int> *root = new BinaryTreenode<int>(1);
@@ -89,7 +115,8 @@ int main()
     // root->right = node2;
     // BinaryTreenode<int> *root = takeInput();
     BinaryTreenode<int> *root = takeInputLevelWise();
-    printBinaryTree(root);
+    // printBinaryTree(root);
+    printBTlevelWise(root);
     delete root;
     return 0;
 }
