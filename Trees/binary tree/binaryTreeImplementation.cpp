@@ -39,6 +39,47 @@ BinaryTreenode<int> *takeInput()
     return root;
 }
 
+BinaryTreenode<int> *takeInputLevelWise()
+{
+    int rootData;
+    cout << "Enter root data" << endl;
+    cin >> rootData;
+    if (rootData == -1)
+    {
+        return NULL;
+    }
+
+    BinaryTreenode<int> *root = new BinaryTreenode<int>(rootData);
+
+    queue<BinaryTreenode<int> *> pendingNodes;
+    pendingNodes.push(root);
+    while (pendingNodes.size() != 0)
+    {
+        BinaryTreenode<int> *front = pendingNodes.front();
+        pendingNodes.pop();
+        cout << "Enter left child of" << front->data << endl;
+        int leftChildData;
+        cin >> leftChildData;
+        if (leftChildData != -1)
+        {
+            BinaryTreenode<int> *child = new BinaryTreenode<int>(leftChildData);
+            front->left = child;
+            pendingNodes.push(child);
+        }
+
+        cout << "Enter right child of" << front->data << endl;
+        int rightChildData;
+        cin >> rightChildData;
+        if (rightChildData != -1)
+        {
+            BinaryTreenode<int> *child = new BinaryTreenode<int>(rightChildData);
+            front->right = child;
+            pendingNodes.push(child);
+        }
+    }
+    return root;
+}
+
 int main()
 {
     // BinaryTreenode<int> *root = new BinaryTreenode<int>(1);
@@ -46,7 +87,8 @@ int main()
     // BinaryTreenode<int> *node2 = new BinaryTreenode<int>(3);
     // root->left = node1;
     // root->right = node2;
-    BinaryTreenode<int> *root = takeInput();
+    // BinaryTreenode<int> *root = takeInput();
+    BinaryTreenode<int> *root = takeInputLevelWise();
     printBinaryTree(root);
     delete root;
     return 0;
