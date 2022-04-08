@@ -4,7 +4,7 @@ using namespace std;
 
 void printBinaryTree(BinaryTreenode<int> *root)
 {
-    if (root->data == -1)
+    if (root == NULL)
     {
         return;
     }
