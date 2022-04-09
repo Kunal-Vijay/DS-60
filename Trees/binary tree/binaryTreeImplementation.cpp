@@ -106,6 +106,34 @@ void printBTlevelWise(BinaryTreenode<int> *root)
         cout << endl;
     }
 }
+
+void inorder(BinaryTreenode<int>*root){
+    if (root==NULL)
+    {
+        return;
+    }
+    inorder(root->left);
+    cout<<root->data<<" ";
+    inorder(root->right);
+}
+void preorder(BinaryTreenode<int>*root){
+    if (root==NULL)
+    {
+        return;
+    }
+    cout<<root->data<<" ";
+    preorder(root->left);
+    preorder(root->right);
+}
+void postorder(BinaryTreenode<int>*root){
+    if (root==NULL)
+    {
+        return;
+    }
+    postorder(root->left);
+    postorder(root->right);
+    cout<<root->data<<" ";
+}
 int main()
 {
     // BinaryTreenode<int> *root = new BinaryTreenode<int>(1);
@@ -116,7 +144,12 @@ int main()
     // BinaryTreenode<int> *root = takeInput();
     BinaryTreenode<int> *root = takeInputLevelWise();
     // printBinaryTree(root);
-    printBTlevelWise(root);
+    // printBTlevelWise(root);
+    inorder(root);
+    cout<<endl;
+    preorder(root);
+    cout<<endl;
+    postorder(root);
     delete root;
     return 0;
 }
