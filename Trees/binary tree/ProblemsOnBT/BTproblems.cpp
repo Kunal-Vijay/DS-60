@@ -22,7 +22,7 @@ BinaryTreenode<int> *takeInput()
 BinaryTreenode<int> *takeInputLevelWise()
 {
     int rootData;
-    cout << "Enter root data" << endl;
+    // cout << "Enter root data" << endl;
     cin >> rootData;
     if (rootData == -1)
     {
@@ -37,7 +37,7 @@ BinaryTreenode<int> *takeInputLevelWise()
     {
         BinaryTreenode<int> *front = pendingNodes.front();
         pendingNodes.pop();
-        cout << "Enter left child of" << front->data << endl;
+        // cout << "Enter left child of" << front->data << endl;
         int leftChildData;
         cin >> leftChildData;
         if (leftChildData != -1)
@@ -47,7 +47,7 @@ BinaryTreenode<int> *takeInputLevelWise()
             pendingNodes.push(child);
         }
 
-        cout << "Enter right child of" << front->data << endl;
+        // cout << "Enter right child of" << front->data << endl;
         int rightChildData;
         cin >> rightChildData;
         if (rightChildData != -1)
@@ -96,12 +96,37 @@ int countNodes(BinaryTreenode<int> *root)
     }
     return 1 + countNodes(root->left) + countNodes(root->right);
 }
+
+// Problem 2 - Node present
+bool nodePresent(BinaryTreenode<int> *root, int node)
+{
+    if (root == NULL)
+    {
+        return false;
+    }
+
+    if (root->data == node)
+    {
+        return true;
+    }
+    else if (nodePresent(root->left, node))
+    {
+        return nodePresent(root->left, node);
+    }
+    else
+    {
+        return nodePresent(root->right, node);
+    }
+
+}
+
 int main()
 {
     BinaryTreenode<int> *root = takeInputLevelWise();
     // printBinaryTree(root);
-    cout << "Number of nodes:" << countNodes(root) << endl;
-    printBTlevelWise(root);
+    // cout << "Number of nodes:" << countNodes(root) << endl;
+    // printBTlevelWise(root);
+    cout<<nodePresent(root,7)<<endl;
     delete root;
     return 0;
 }
