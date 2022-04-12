@@ -107,6 +107,7 @@ void printBTlevelWise(BinaryTreenode<int> *root)
     }
 }
 
+// BT Traversals
 void inorder(BinaryTreenode<int> *root)
 {
     if (root == NULL)
@@ -138,6 +139,7 @@ void postorder(BinaryTreenode<int> *root)
     cout << root->data << " ";
 }
 
+// construct tree from inorder and preorder
 BinaryTreenode<int> *buildTreeHelper(int *in, int *pre, int inS, int inE, int preS, int preE)
 {
     if (inS > inE)
@@ -174,6 +176,44 @@ BinaryTreenode<int> *buildTree(int *in, int *pre, int size)
 {
     return buildTreeHelper(in, pre, 0, size - 1, 0, size - 1);
 }
+
+// construct tree from post order and in order
+BinaryTreenode<int> *buildTreeHelper2(int *in, int *post, int inS, int inE, int postS, int postE)
+{
+    if (inS > inE)
+    {
+        return NULL;
+    }
+
+    int rootData = post[postS];
+    int rootIndex = -1;
+    for (int i = inS; i <= inE; i++)
+    {
+        if (in[i] == rootData)
+        {
+            rootIndex = i;
+            break;
+        }
+    }
+
+    int lPostS = postS;
+    int lInS = inS;
+    int lInE = rootIndex - 1;
+    int rPostE = postE - 1;
+    int rInS = rootIndex + 1;
+    int rInE = inE;
+    int lPostE = lInE - lInS + lPostS;
+    int rPostS = lPostE + 1;
+    BinaryTreenode<int> *root = new BinaryTreenode<int>(rootData);
+    root->left = buildTreeHelper2(in, post, lInS, lInE, lPostS, lPostE);
+    root->right = buildTreeHelper2(in, post, rInS, rInE, rPostS, rPostE);
+    return root;
+}
+
+BinaryTreenode<int> *buildTree2(int *in, int *post, int size)
+{
+    return buildTreeHelper2(in, post, 0, size - 1, 0, size - 1);
+}
 int main()
 {
     // BinaryTreenode<int> *root = new BinaryTreenode<int>(1);
@@ -184,9 +224,13 @@ int main()
     // BinaryTreenode<int> *root = takeInput();
     // BinaryTreenode<int> *root = takeInputLevelWise();
     // printBinaryTree(root);
-    int in[] = {4, 2, 5, 1, 8, 6, 9, 3, 7};
-    int pre[] = {1, 2, 4, 5, 3, 6, 8, 9, 7};
-    printBTlevelWise(buildTree(in, pre, 9));
+    // int in[] = {4, 2, 5, 1, 8, 6, 9, 3, 7};
+    // int pre[] = {1, 2, 4, 5, 3, 6, 8, 9, 7};
+    // printBTlevelWise(buildTree(in, pre, 9));
+
+    int post[] = {4, 5, 2, 6, 7, 3, 1};
+    int in[] = {4, 2, 5, 1, 6, 3, 7};
+    printBTlevelWise(buildTree2(in, post, 7));
     // inorder(root);
     // cout << endl;
     // preorder(root);
