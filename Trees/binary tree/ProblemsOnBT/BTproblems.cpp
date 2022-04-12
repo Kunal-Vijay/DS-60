@@ -120,13 +120,22 @@ bool nodePresent(BinaryTreenode<int> *root, int node)
 
 }
 
+//  Problem 3 - height of tree
+int height(BinaryTreenode<int>* root){
+    if (root==NULL)
+    {
+        return 0;
+    }
+    return 1 + max(height(root->left),height(root->left));
+}
 int main()
 {
     BinaryTreenode<int> *root = takeInputLevelWise();
     // printBinaryTree(root);
     // cout << "Number of nodes:" << countNodes(root) << endl;
     // printBTlevelWise(root);
-    cout<<nodePresent(root,7)<<endl;
+    // cout<<nodePresent(root,7)<<endl;
+    cout<<height(root)<<endl;
     delete root;
     return 0;
 }
