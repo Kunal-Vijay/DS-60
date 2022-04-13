@@ -117,16 +117,26 @@ bool nodePresent(BinaryTreenode<int> *root, int node)
     {
         return nodePresent(root->right, node);
     }
-
 }
 
 //  Problem 3 - height of tree
-int height(BinaryTreenode<int>* root){
-    if (root==NULL)
+int height(BinaryTreenode<int> *root)
+{
+    if (root == NULL)
     {
         return 0;
     }
-    return 1 + max(height(root->left),height(root->left));
+    return 1 + max(height(root->left), height(root->left));
+}
+
+// Problem 4 - diameter of BT
+int diameter(BinaryTreenode<int> *root)
+{
+    if (root == NULL)
+    {
+        return 0;
+    }
+    return max(height(root->left) + height(root->right), max(height(root->left), height(root->right)));
 }
 int main()
 {
@@ -135,7 +145,8 @@ int main()
     // cout << "Number of nodes:" << countNodes(root) << endl;
     // printBTlevelWise(root);
     // cout<<nodePresent(root,7)<<endl;
-    cout<<height(root)<<endl;
+    // cout << height(root) << endl;
+    cout<<diameter(root)<<endl;
     delete root;
     return 0;
 }
