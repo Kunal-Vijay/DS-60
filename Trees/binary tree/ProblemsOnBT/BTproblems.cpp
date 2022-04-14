@@ -163,6 +163,39 @@ pair<int, int> heightDiameter(BinaryTreenode<int> *root)
     p.second = diameter;
     return p;
 }
+
+// Problem 5 - min max of BT
+pair<int, int> maxMin(BinaryTreenode<int> *root)
+{
+    if (root == NULL)
+    {
+        pair<int, int> p;
+        p.first = 0;
+        p.second = 0;
+        return p;
+    }
+    pair<int, int> leftAns = maxMin(root->left);
+    pair<int, int> rightAns = maxMin(root->right);
+    int lmax = leftAns.first;
+    int lmin = leftAns.second;
+    int rmax = rightAns.first;
+    int rmin = rightAns.second;
+
+    int maximum = max(lmax, rmax);
+    int minimum = min(lmin, rmin);
+    if (root->data > maximum)
+    {
+        maximum = root->data;
+    }
+    if (root->data < minimum||minimum==0)
+    {
+        minimum = root->data;
+    }
+    pair <int,int> p;
+    p.first = maximum;
+    p.second = minimum;
+    return p;
+}
 int main()
 {
     BinaryTreenode<int> *root = takeInputLevelWise();
@@ -172,9 +205,12 @@ int main()
     // cout<<nodePresent(root,7)<<endl;
     // cout << height(root) << endl;
     // cout << diameter(root) << endl;
-    pair<int, int> p = heightDiameter(root);
-    cout << "Height:" << p.first << endl;
-    cout << "Diameter:" << p.second << endl;
+    // pair<int, int> p = heightDiameter(root);
+    // cout << "Height:" << p.first << endl;
+    // cout << "Diameter:" << p.second << endl;
+    pair<int, int> p = maxMin(root);
+    cout << "Max:" << p.first << endl;
+    cout << "Min:" << p.second << endl;
     delete root;
     return 0;
 }
