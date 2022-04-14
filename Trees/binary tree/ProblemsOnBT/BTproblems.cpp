@@ -187,14 +187,24 @@ pair<int, int> maxMin(BinaryTreenode<int> *root)
     {
         maximum = root->data;
     }
-    if (root->data < minimum||minimum==0)
+    if (root->data < minimum || minimum == 0)
     {
         minimum = root->data;
     }
-    pair <int,int> p;
+    pair<int, int> p;
     p.first = maximum;
     p.second = minimum;
     return p;
+}
+
+// Problem 6 - Sum of Nodes
+int sumOfNodes(BinaryTreenode<int> *root)
+{
+    if (root == NULL)
+    {
+        return 0;
+    }
+    return sumOfNodes(root->left) + sumOfNodes(root->right) + (root->data);
 }
 int main()
 {
@@ -208,9 +218,10 @@ int main()
     // pair<int, int> p = heightDiameter(root);
     // cout << "Height:" << p.first << endl;
     // cout << "Diameter:" << p.second << endl;
-    pair<int, int> p = maxMin(root);
-    cout << "Max:" << p.first << endl;
-    cout << "Min:" << p.second << endl;
+    // pair<int, int> p = maxMin(root);
+    // cout << "Max:" << p.first << endl;
+    // cout << "Min:" << p.second << endl;
+    cout<<sumOfNodes(root)<<endl;
     delete root;
     return 0;
 }
