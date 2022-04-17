@@ -206,6 +206,22 @@ int sumOfNodes(BinaryTreenode<int> *root)
     }
     return sumOfNodes(root->left) + sumOfNodes(root->right) + (root->data);
 }
+
+// Problem 7 - Balanced Tree - error
+bool isBalanced(BinaryTreenode<int> *root)
+{
+    if (root == NULL)
+    {
+        return 0;
+    }
+    int lh = height(root->left);
+    int rh = height(root->right);
+    if (((lh-rh) <= 1||(lh-rh) >= -1) && (isBalanced(root->left) && isBalanced(root->right)))
+    {
+        return 1;
+    }
+    return 0;
+}
 int main()
 {
     BinaryTreenode<int> *root = takeInputLevelWise();
@@ -221,7 +237,8 @@ int main()
     // pair<int, int> p = maxMin(root);
     // cout << "Max:" << p.first << endl;
     // cout << "Min:" << p.second << endl;
-    cout<<sumOfNodes(root)<<endl;
+    // cout << sumOfNodes(root) << endl;
+    cout << isBalanced(root) << endl;
     delete root;
     return 0;
 }
