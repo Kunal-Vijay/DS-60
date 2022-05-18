@@ -247,12 +247,12 @@ void levelOrder(BinaryTreenode<int> *root)
             else
             {
                 pendingNodes.push(NULL);
-                cout<<endl;
+                cout << endl;
             }
         }
         else
         {
-            cout << front->data<<" ";
+            cout << front->data << " ";
             if (front->left != NULL)
             {
                 pendingNodes.push(front->left);
@@ -263,6 +263,24 @@ void levelOrder(BinaryTreenode<int> *root)
             }
         }
     }
+}
+
+// Problem 9 - remove leaf node
+BinaryTreenode<int>* removeLeaf(BinaryTreenode<int> *root)
+{
+    if (root == NULL)
+    {
+
+        return root;
+    }
+    if (root->left == NULL && root->right == NULL)
+    {
+        root = NULL;
+        return root;
+    }
+    root->left=removeLeaf(root->left);
+    root->right=removeLeaf(root->right);
+    return root;
 }
 int main()
 {
@@ -281,6 +299,7 @@ int main()
     // cout << "Min:" << p.second << endl;
     // cout << sumOfNodes(root) << endl;
     // cout << isBalanced(root) << endl;
+    removeLeaf(root);
     levelOrder(root);
     delete root;
     return 0;
