@@ -282,6 +282,48 @@ BinaryTreenode<int>* removeLeaf(BinaryTreenode<int> *root)
     root->right=removeLeaf(root->right);
     return root;
 }
+
+// Problem 11 - Mirror BT
+void mirrorBT(BinaryTreenode<int> *root)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+    queue<BinaryTreenode<int> *> pendingNodes;
+    pendingNodes.push(root);
+    pendingNodes.push(NULL);
+
+    while (pendingNodes.size() != 0)
+    {
+        BinaryTreenode<int> *front = pendingNodes.front();
+        pendingNodes.pop();
+        if (front == NULL)
+        {
+            if (pendingNodes.empty())
+            {
+                break;
+            }
+            else
+            {
+                pendingNodes.push(NULL);
+                cout << endl;
+            }
+        }
+        else
+        {
+            cout << front->data << " ";
+            if (front->right != NULL)
+            {
+                pendingNodes.push(front->right);
+            }
+            if (front->left != NULL)
+            {
+                pendingNodes.push(front->left);
+            }
+        }
+    }
+}
 int main()
 {
     BinaryTreenode<int> *root = takeInputLevelWise();
@@ -299,8 +341,9 @@ int main()
     // cout << "Min:" << p.second << endl;
     // cout << sumOfNodes(root) << endl;
     // cout << isBalanced(root) << endl;
-    removeLeaf(root);
-    levelOrder(root);
+    // removeLeaf(root);
+    // levelOrder(root);
+    mirrorBT(root);
     delete root;
     return 0;
 }
