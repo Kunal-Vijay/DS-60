@@ -216,11 +216,53 @@ bool isBalanced(BinaryTreenode<int> *root)
     }
     int lh = height(root->left);
     int rh = height(root->right);
-    if (((lh-rh) <= 1||(lh-rh) >= -1) && (isBalanced(root->left) && isBalanced(root->right)))
+    if (((lh - rh) <= 1 || (lh - rh) >= -1) && (isBalanced(root->left) && isBalanced(root->right)))
     {
         return 1;
     }
     return 0;
+}
+
+// Problem 8 - level order printing
+void levelOrder(BinaryTreenode<int> *root)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+    queue<BinaryTreenode<int> *> pendingNodes;
+    pendingNodes.push(root);
+    pendingNodes.push(NULL);
+
+    while (pendingNodes.size() != 0)
+    {
+        BinaryTreenode<int> *front = pendingNodes.front();
+        pendingNodes.pop();
+        if (front == NULL)
+        {
+            if (pendingNodes.empty())
+            {
+                break;
+            }
+            else
+            {
+                pendingNodes.push(NULL);
+                cout<<endl;
+            }
+        }
+        else
+        {
+            cout << front->data<<" ";
+            if (front->left != NULL)
+            {
+                pendingNodes.push(front->left);
+            }
+            if (front->right != NULL)
+            {
+                pendingNodes.push(front->right);
+            }
+        }
+    }
 }
 int main()
 {
@@ -238,7 +280,8 @@ int main()
     // cout << "Max:" << p.first << endl;
     // cout << "Min:" << p.second << endl;
     // cout << sumOfNodes(root) << endl;
-    cout << isBalanced(root) << endl;
+    // cout << isBalanced(root) << endl;
+    levelOrder(root);
     delete root;
     return 0;
 }
