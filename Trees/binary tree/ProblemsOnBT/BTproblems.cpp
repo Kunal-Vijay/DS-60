@@ -266,7 +266,7 @@ void levelOrder(BinaryTreenode<int> *root)
 }
 
 // Problem 9 - remove leaf node
-BinaryTreenode<int>* removeLeaf(BinaryTreenode<int> *root)
+BinaryTreenode<int> *removeLeaf(BinaryTreenode<int> *root)
 {
     if (root == NULL)
     {
@@ -278,8 +278,8 @@ BinaryTreenode<int>* removeLeaf(BinaryTreenode<int> *root)
         root = NULL;
         return root;
     }
-    root->left=removeLeaf(root->left);
-    root->right=removeLeaf(root->right);
+    root->left = removeLeaf(root->left);
+    root->right = removeLeaf(root->right);
     return root;
 }
 
@@ -324,6 +324,54 @@ void mirrorBT(BinaryTreenode<int> *root)
         }
     }
 }
+
+// Problem 12 - Zig zag tree
+void zigZagBT(BinaryTreenode<int> *root)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+    stack<BinaryTreenode<int> *> s1;
+    stack<BinaryTreenode<int> *> s2;
+    s1.push(root);
+
+    while (!(s1.empty() && s2.empty()))
+    {
+        while (!(s1.empty()))
+        {
+            BinaryTreenode<int> *current = s1.top();
+            s1.pop();
+
+            cout << current->data << " ";
+            if (current->left != NULL)
+            {
+                s2.push(current->left);
+            }
+            if (current->right != NULL)
+            {
+                s2.push(current->right);
+            }
+        }
+        cout << endl;
+        while (!(s2.empty()))
+        {
+            BinaryTreenode<int> *current = s2.top();
+            s2.pop();
+
+            cout << current->data << " ";
+            if (current->right != NULL)
+            {
+                s1.push(current->right);
+            }
+            if (current->left != NULL)
+            {
+                s1.push(current->left);
+            }
+        }
+        cout << endl;
+    }
+}
 int main()
 {
     BinaryTreenode<int> *root = takeInputLevelWise();
@@ -343,7 +391,8 @@ int main()
     // cout << isBalanced(root) << endl;
     // removeLeaf(root);
     // levelOrder(root);
-    mirrorBT(root);
+    // mirrorBT(root);
+    zigZagBT(root);
     delete root;
     return 0;
 }
