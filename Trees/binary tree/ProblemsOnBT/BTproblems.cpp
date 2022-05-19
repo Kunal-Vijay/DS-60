@@ -372,6 +372,25 @@ void zigZagBT(BinaryTreenode<int> *root)
         cout << endl;
     }
 }
+
+void nodeWithoutSiblings(BinaryTreenode<int> *root)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+    if (root->left == NULL && root->right != NULL)
+    {
+        cout << root->right->data << " ";
+    }
+    if (root->left != NULL && root->right == NULL)
+    {
+        cout << root->left->data << " ";
+    }
+    nodeWithoutSiblings(root->left);
+    nodeWithoutSiblings(root->right);
+}
+
 int main()
 {
     BinaryTreenode<int> *root = takeInputLevelWise();
@@ -392,7 +411,8 @@ int main()
     // removeLeaf(root);
     // levelOrder(root);
     // mirrorBT(root);
-    zigZagBT(root);
+    // zigZagBT(root);
+    nodeWithoutSiblings(root);
     delete root;
     return 0;
 }
