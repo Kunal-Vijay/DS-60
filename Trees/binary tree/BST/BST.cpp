@@ -92,6 +92,14 @@ bool searchBST(BinaryTreenode<int> *root, int node)
     }
 }
 
+// Problem 2 - Print in Range
+void PrintInRange(BinaryTreenode<int> *root, int min, int max)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+}
 int main()
 {
     BinaryTreenode<int> *root = takeInputLevelWise();
