@@ -99,12 +99,29 @@ void PrintInRange(BinaryTreenode<int> *root, int min, int max)
     {
         return;
     }
+    if (root->data < min)
+    {
+        PrintInRange(root->right, min, max);
+    }
+    if (root->data > max)
+    {
+
+        PrintInRange(root->left, min, max);
+    }
+    if (root->data >= min && root->data <= max)
+    {
+        cout << root->data << endl;
+        PrintInRange(root->left, min, max);
+        PrintInRange(root->right, min, max);
+    }
 }
+
 int main()
 {
     BinaryTreenode<int> *root = takeInputLevelWise();
-    int x;
-    cin >> x;
-    cout << searchBST(root, x) << endl;
+    int x, y;
+    cin >> x >> y;
+    // cout << searchBST(root, x) << endl;
+    PrintInRange(root, x, y);
     return 0;
 }
