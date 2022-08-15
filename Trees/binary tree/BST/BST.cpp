@@ -116,12 +116,44 @@ void PrintInRange(BinaryTreenode<int> *root, int min, int max)
     }
 }
 
+// Problem 3 - Check BST
+int minimum(BinaryTreenode<int> *root)
+{
+    if (root == NULL)
+    {
+        return INT_MAX;
+    }
+    return min(root->data, min(minimum(root->left), minimum(root->right)));
+}
+
+int maximum(BinaryTreenode<int> *root)
+{
+    if (root == NULL)
+    {
+        return INT_MIN;
+    }
+    return max(root->data, max(maximum(root->left), maximum(root->right)));
+}
+
+bool checkBST(BinaryTreenode<int> *root)
+{
+    if (root == NULL)
+    {
+        return true;
+    }
+    int leftMax = maximum(root->left);
+    int rightMin = minimum(root->right);
+    bool output = (root->data > leftMax) && (root->data <= rightMin) && checkBST(root->left) && checkBST(root->right);
+    return output;
+}
+
 int main()
 {
     BinaryTreenode<int> *root = takeInputLevelWise();
-    int x, y;
-    cin >> x >> y;
+    // int x, y;
+    // cin >> x >> y;
     // cout << searchBST(root, x) << endl;
-    PrintInRange(root, x, y);
+    // PrintInRange(root, x, y);
+    cout<<checkBST(root);
     return 0;
 }
