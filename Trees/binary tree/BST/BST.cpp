@@ -164,14 +164,31 @@ bool checkBST2(BinaryTreenode<int> *root, int min = INT_MIN, int max = INT_MAX)
     return isLeftOk && isRightOk;
 }
 
+// Problem 4 - BST from sorted array
+BinaryTreenode<int> *arrayBST(vector<int> arr, int startIndex, int endIndex)
+{
+    int mid = (startIndex + endIndex) / 2;
+    BinaryTreenode<int> *root = new BinaryTreenode<int>(arr[mid]);
+    if (startIndex == endIndex)
+    {
+        return root;
+    }
+    root->left = arrayBST(arr, startIndex, mid - 1);
+    root->right = arrayBST(arr, mid + 1, endIndex);
+    return root;
+}
+
 int main()
 {
-    BinaryTreenode<int> *root = takeInputLevelWise();
+    // BinaryTreenode<int> *root = takeInputLevelWise();
     // int x, y;
     // cin >> x >> y;
     // cout << searchBST(root, x) << endl;
     // PrintInRange(root, x, y);
-    cout << checkBST(root);
-    cout << checkBST2(root);
+    // cout << checkBST(root);
+    // cout << checkBST2(root);
+    vector<int> arr{1, 2, 3, 4, 5, 6, 7};
+    BinaryTreenode<int> *root = arrayBST(arr, 0, 6);
+    printBTlevelWise(root);
     return 0;
 }
