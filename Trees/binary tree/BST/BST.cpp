@@ -178,17 +178,60 @@ BinaryTreenode<int> *arrayBST(vector<int> arr, int startIndex, int endIndex)
     return root;
 }
 
+// Problem 5 - BST to LL
+class Node
+{
+public:
+    int data;
+    Node *next;
+};
+
+Node *BSTtoLL(BinaryTreenode<int> *root)
+{
+    if (root == NULL)
+    {
+        return NULL;
+    }
+    Node *ptr = new Node;
+
+    ptr->data = root->data;
+    Node *left = BSTtoLL(root->left);
+    Node *right = BSTtoLL(root->right);
+    ptr->next = right;
+    if (left == NULL)
+    {
+        return ptr;
+    }
+    Node *leftTail = left;
+    while (leftTail->next != NULL)
+    {
+        leftTail = leftTail->next;
+    }
+    leftTail->next = ptr;
+    return left;
+}
+void printLL(Node *ptr)
+{
+    for (int i = 1; ptr != NULL; i++)
+    {
+        cout << ptr->data << " ";
+        ptr = ptr->next;
+    }
+    cout << endl;
+}
+
 int main()
 {
-    // BinaryTreenode<int> *root = takeInputLevelWise();
+    BinaryTreenode<int> *root = takeInputLevelWise();
     // int x, y;
     // cin >> x >> y;
     // cout << searchBST(root, x) << endl;
     // PrintInRange(root, x, y);
     // cout << checkBST(root);
     // cout << checkBST2(root);
-    vector<int> arr{1, 2, 3, 4, 5, 6, 7};
-    BinaryTreenode<int> *root = arrayBST(arr, 0, 6);
-    printBTlevelWise(root);
+    // vector<int> arr{1, 2, 3, 4, 5, 6, 7};
+    // BinaryTreenode<int> *root = arrayBST(arr, 0, 6);
+    // printBTlevelWise(root);
+    printLL(BSTtoLL(root));
     return 0;
 }
