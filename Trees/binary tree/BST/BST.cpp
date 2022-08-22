@@ -220,6 +220,36 @@ void printLL(Node *ptr)
     cout << endl;
 }
 
+// Problem 6 - Root to Node Path
+vector<int> *getRootToNodePath(BinaryTreenode<int> *root, int data)
+{
+    if (root == NULL)
+    {
+        return NULL;
+    }
+    if (root->data == data)
+    {
+        vector<int> *output = new vector<int>();
+        output->push_back(root->data);
+        return output;
+    }
+    vector<int> *leftOutput = getRootToNodePath(root->left, data);
+    if (leftOutput != NULL)
+    {
+        leftOutput->push_back(root->data);
+        return leftOutput;
+    }
+    vector<int> *rightOutput = getRootToNodePath(root->right, data);
+    if (rightOutput != NULL)
+    {
+        rightOutput->push_back(root->data);
+        return rightOutput;
+    }
+    else
+    {
+        return NULL;
+    }
+}
 int main()
 {
     BinaryTreenode<int> *root = takeInputLevelWise();
@@ -232,6 +262,13 @@ int main()
     // vector<int> arr{1, 2, 3, 4, 5, 6, 7};
     // BinaryTreenode<int> *root = arrayBST(arr, 0, 6);
     // printBTlevelWise(root);
-    printLL(BSTtoLL(root));
+    // printLL(BSTtoLL(root));
+    int data;
+    cin >> data;
+    vector<int> *output = getRootToNodePath(root, data);
+    for (int i = 0; i < output->size(); i++)
+    {
+        cout << output->at(i) << " ";
+    }
     return 0;
 }
