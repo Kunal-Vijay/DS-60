@@ -251,6 +251,24 @@ vector<int> *getRootToNodePath(BinaryTreenode<int> *root, int data)
         return NULL;
     }
 }
+
+// BST assignment
+// Problem 0 - Insert duplicate node
+BinaryTreenode<int> *InsertDuplicateNode(BinaryTreenode<int> *root)
+{
+    if (root == NULL)
+    {
+        return NULL;
+    }
+    BinaryTreenode<int> *leftNode = root->left;
+    BinaryTreenode<int> *newNode = new BinaryTreenode<int>(root->data);
+    root->left = newNode;
+    newNode->right = NULL;
+    newNode->left = InsertDuplicateNode(leftNode);
+    root->right = InsertDuplicateNode(root->right);
+    return root;
+}
+
 int main()
 {
     // BinaryTreenode<int> *root = takeInputLevelWise();
@@ -271,16 +289,20 @@ int main()
     // {
     //     cout << output->at(i) << " ";
     // }
-    BST b;
-    b.insertData(10);
-    b.insertData(5);
-    b.insertData(20);
-    b.insertData(7);
-    b.insertData(3);
-    b.printBT();
-    b.deleteData(3);
-    b.printBT();
-    cout << b.hasData(7) << endl;
+    // BST b;
+    // b.insertData(10);
+    // b.insertData(5);
+    // b.insertData(20);
+    // b.insertData(7);
+    // b.insertData(3);
+    // b.printBT();
+    // b.deleteData(3);
+    // b.printBT();
+    // cout << b.hasData(7) << endl;
+
+    // BST assignments
+    BinaryTreenode<int> *root = takeInputLevelWise();
+    printBTlevelWise(InsertDuplicateNode(root));
 
     return 0;
 }
