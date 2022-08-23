@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
-#include "../binaryTreenode.h"
+// #include "../binaryTreenode.h"
+#include "BSTclass.h"
 using namespace std;
 
 BinaryTreenode<int> *takeInputLevelWise()
@@ -252,7 +253,7 @@ vector<int> *getRootToNodePath(BinaryTreenode<int> *root, int data)
 }
 int main()
 {
-    BinaryTreenode<int> *root = takeInputLevelWise();
+    // BinaryTreenode<int> *root = takeInputLevelWise();
     // int x, y;
     // cin >> x >> y;
     // cout << searchBST(root, x) << endl;
@@ -263,12 +264,23 @@ int main()
     // BinaryTreenode<int> *root = arrayBST(arr, 0, 6);
     // printBTlevelWise(root);
     // printLL(BSTtoLL(root));
-    int data;
-    cin >> data;
-    vector<int> *output = getRootToNodePath(root, data);
-    for (int i = 0; i < output->size(); i++)
-    {
-        cout << output->at(i) << " ";
-    }
+    // int data;
+    // cin >> data;
+    // vector<int> *output = getRootToNodePath(root, data);
+    // for (int i = 0; i < output->size(); i++)
+    // {
+    //     cout << output->at(i) << " ";
+    // }
+    BST b;
+    b.insertData(10);
+    b.insertData(5);
+    b.insertData(20);
+    b.insertData(7);
+    b.insertData(3);
+    b.printBT();
+    b.deleteData(3);
+    b.printBT();
+    cout << b.hasData(7) << endl;
+
     return 0;
 }
