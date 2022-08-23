@@ -269,6 +269,21 @@ BinaryTreenode<int> *InsertDuplicateNode(BinaryTreenode<int> *root)
     return root;
 }
 
+// Problem 1 - Pair sum BT
+void pairSum(BinaryTreenode<int> *node, BinaryTreenode<int> *root, int s)
+{
+    if (node == NULL)
+    {
+        return;
+    }
+    if (searchBST(root, (s - node->data)))
+    {
+        cout << node->data << " " << (s - node->data) << endl;
+        node->data = INT_MAX;
+    };
+    pairSum(node->left, root, s);
+    pairSum(node->right, root, s);
+}
 int main()
 {
     // BinaryTreenode<int> *root = takeInputLevelWise();
@@ -302,7 +317,8 @@ int main()
 
     // BST assignments
     BinaryTreenode<int> *root = takeInputLevelWise();
-    printBTlevelWise(InsertDuplicateNode(root));
+    // printBTlevelWise(InsertDuplicateNode(root));
+    pairSum(root, root, 15);
 
     return 0;
 }
