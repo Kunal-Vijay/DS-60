@@ -375,6 +375,27 @@ int LCAofBST(BinaryTreenode<int> *root, int node1, int node2)
     }
     return -1;
 }
+
+// Problem 4 - largest BST
+int height(BinaryTreenode<int> *root)
+{
+    if (root == NULL)
+    {
+        return 0;
+    }
+    return 1 + max(height(root->left), height(root->left));
+}
+int LargestBST(BinaryTreenode<int> *root)
+{
+    if (checkBST(root))
+    {
+        return height(root);   
+    }
+    else
+    {
+        return max(LargestBST(root->left), LargestBST(root->right));
+    }
+}
 int main()
 {
     // BinaryTreenode<int> *root = takeInputLevelWise();
@@ -410,7 +431,8 @@ int main()
     BinaryTreenode<int> *root = takeInputLevelWise();
     // printBTlevelWise(InsertDuplicateNode(root));
     // pairSum(root, root, 15);
-    cout << LCAofBST(root, 2, 6) << endl;
+    // cout << LCAofBST(root, 2, 6) << endl;
+    cout << LargestBST(root) << endl;
 
     return 0;
 }
