@@ -284,6 +284,70 @@ void pairSum(BinaryTreenode<int> *node, BinaryTreenode<int> *root, int s)
     pairSum(node->left, root, s);
     pairSum(node->right, root, s);
 }
+
+// Problem 2 - LCA of BT
+bool searchBT(BinaryTreenode<int> *root, int node)
+{
+    if (root == NULL)
+    {
+        return false;
+    }
+
+    if (root->data == node)
+    {
+        return true;
+    }
+    else if (searchBT(root->left, node))
+    {
+        return searchBT(root->left, node);
+    }
+    else
+    {
+        return searchBT(root->right, node);
+    }
+}
+int LCA(BinaryTreenode<int> *root, int node1, int node2)
+{
+    if (root->data == node1 || root->data == node2)
+    {
+        return root->data;
+    }
+    else if (root->data > node1 && root->data > node2)
+    {
+        return LCA(root->left, node1, node2);
+    }
+    else if (root->data < node1 && root->data < node2)
+    {
+        return LCA(root->right, node1, node2);
+    }
+    return root->data;
+}
+
+int LCAtoBT(BinaryTreenode<int> *root, int node1, int node2)
+{
+    if (root == NULL)
+    {
+        return -1;
+    }
+    bool node1exist = searchBT(root, node1);
+    bool node2exist = searchBT(root, node2);
+    if (node1exist)
+    {
+        if (node2exist)
+        {
+            return LCA(root, node1, node2);
+        }
+        else
+        {
+            return node1;
+        }
+    }
+    if (node2exist)
+    {
+        return node2;
+    }
+    return -1;
+}
 int main()
 {
     // BinaryTreenode<int> *root = takeInputLevelWise();
@@ -318,7 +382,8 @@ int main()
     // BST assignments
     BinaryTreenode<int> *root = takeInputLevelWise();
     // printBTlevelWise(InsertDuplicateNode(root));
-    pairSum(root, root, 15);
+    // pairSum(root, root, 15);
+    cout << LCAtoBT(root, 2, 10) << endl;
 
     return 0;
 }
