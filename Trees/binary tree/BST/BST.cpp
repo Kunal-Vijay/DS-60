@@ -389,12 +389,33 @@ int LargestBST(BinaryTreenode<int> *root)
 {
     if (checkBST(root))
     {
-        return height(root);   
+        return height(root);
     }
     else
     {
         return max(LargestBST(root->left), LargestBST(root->right));
     }
+}
+// Problem 5 - Replace with sum of greater nodes  -- Todo
+int sumBST(BinaryTreenode<int> *root)
+{
+    if (root == NULL)
+    {
+        return 0;
+    }
+    return sumBST(root->left) + sumBST(root->right) + (root->data);
+}
+
+BinaryTreenode<int> *replaceSum(BinaryTreenode<int> *root)
+{
+    if (root == NULL)
+    {
+        return NULL;
+    }
+    root->data = root->data + sumBST(root->right);
+    root->right = replaceSum(root->right);
+    root->left = root->data + replaceSum(root->left);
+    return root;
 }
 int main()
 {
@@ -432,7 +453,8 @@ int main()
     // printBTlevelWise(InsertDuplicateNode(root));
     // pairSum(root, root, 15);
     // cout << LCAofBST(root, 2, 6) << endl;
-    cout << LargestBST(root) << endl;
+    // cout << LargestBST(root) << endl;
+    printBTlevelWise(replaceSum(root));
 
     return 0;
 }
