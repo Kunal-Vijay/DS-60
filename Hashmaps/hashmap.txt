@@ -1,0 +1,14 @@
+                                    ### Hashmaps ###
+__________________________________________________________________________________________________
+
+# Problem  - find the highest occurring character in string
+- we can use array of size 0-256(ASCII charset) - O(1) time complexity
+arr['a']++; -> increase the count of a by 1 
+
+# Problem - find the highest occurring word
+- cannot use array since word is not possible for indexing (arr['abc'] -> X)
+- using Linked list - O(n) [since have to traverse to the node for insert delete and search operation]
+- using BST - O(log N) 
+- using Hashmaps
+    > Map -> implement using BST -> O(log n)
+    > Unordered Map -> implement using hashtable -> O(1)
