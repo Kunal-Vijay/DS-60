@@ -2,7 +2,8 @@
     "files.associations": {
         "*.ejs": "html",
         "iostream": "cpp",
-        "*.tcc": "cpp"
+        "*.tcc": "cpp",
+        "ostream": "cpp"
     },
     "cSpell.words": [
         "Treenode"
