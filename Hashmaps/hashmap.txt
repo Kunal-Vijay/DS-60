@@ -12,3 +12,8 @@ arr['a']++; -> increase the count of a by 1
 - using Hashmaps
     > Map -> implement using BST -> O(log n)
     > Unordered Map -> implement using hashtable -> O(1)
+____________________________________________________________________________________________________
+
+# Problem - remove duplicates from an array 
+- using array -> if it has element like 10^6 then we have to make an array of 10^6 which takes a lot of memory
+- using unordered maps -> max size will reach till the size of original array
