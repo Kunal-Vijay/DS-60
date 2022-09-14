@@ -1,7 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-
 // Problem 1 - Remove Duplicates
 vector<int> removeDuplicates(int *a, int size)
 {
@@ -19,13 +18,37 @@ vector<int> removeDuplicates(int *a, int size)
     return output;
 }
 
+// Problem 2 - Maximum Frequency Number
+int maxFrequency(int *a, int size)
+{
+    unordered_map<int, int> numcount;
+    int max = 0;
+    for (int i = 0; i < size; i++)
+    {
+        numcount[a[i]]++;
+        if (numcount.count(a[i]) > numcount.count(max))
+        {
+            max = a[i];
+        }
+    }
+    return max;
+}
 int main()
 {
-    int a[] = {1, 2, 3, 3, 2, 1, 4, 3, 6};
-    vector<int> output = removeDuplicates(a, 9);
-    for (int i = 0; i < output.size(); i++)
+    // Problem 1
+    int size;
+    cin >> size;
+    int a[size];
+    for (int i = 0; i < size; i++)
     {
-        cout<<output[i]<<endl;
+        cin >> a[i];
     }
+    // vector<int> output = removeDuplicates(a, size);
+    // for (int i = 0; i < output.size(); i++)
+    // {
+    //     cout << output[i] << endl;
+    // }
+    
+    cout << maxFrequency(a, size) << endl;
     return 0;
 }
