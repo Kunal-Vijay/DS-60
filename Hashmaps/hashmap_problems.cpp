@@ -53,6 +53,23 @@ void arrayIntersection(int *a1, int size1, int *a2, int size2)
         }
     }
 }
+
+// Problem 4 - Pair sum to 0
+int pairSum0(int *a, int size)
+{
+    unordered_map<int, int> map1;
+    int pairCount = 0;
+    for (int i = 0; i < size; i++)
+    {
+        map1[a[i]]++;
+        if (map1.count(-a[i]) > 0)
+        {
+            pairCount++;
+        }
+    }
+    return pairCount;
+}
+
 int main()
 {
     int size;
@@ -71,12 +88,14 @@ int main()
     // cout << maxFrequency(a, size) << endl;
     // return 0;
 
-    int size2;
-    cin >> size2;
-    int a2[size2];
-    for (int i = 0; i < size2; i++)
-    {
-        cin >> a2[i];
-    }
-    arrayIntersection(a,size,a2,size2);
+    // int size2;
+    // cin >> size2;
+    // int a2[size2];
+    // for (int i = 0; i < size2; i++)
+    // {
+    //     cin >> a2[i];
+    // }
+    // arrayIntersection(a,size,a2,size2);
+
+    cout << pairSum0(a, size) << endl;
 }
