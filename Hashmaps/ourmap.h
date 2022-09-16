@@ -79,20 +79,59 @@ public:
         {
             if (head->key == key)
             {
-                head->value = value;   // if key already found replace its value
+                head->value = value; // if key already found replace its value
                 return;
             }
             head = head->next;
         }
         head = buckets[bucketIndex];
         MapNode<V> *node = new MapNode<V>(key, value);
-        node->next = head;               // if not add the node 
+        node->next = head; // if not add the node
         buckets[bucketIndex] = node;
         size++;
     }
 
     V remove(string key)
     {
+        int bucketIndex = getBucketIndex(key);
+        MapNode<V> *head = buckets[bucketIndex];
+        MapNode<V> *head = NULL;
+        while (head != NULL)
+        {
+            if (head->key == key)
+            {
+                if (prev == NULL)
+
+                {
+                    buckets[bucketIndex] = head->next;
+                }
+                else
+                {
+                    prev->next = head->next;
+                }
+                V value = head->value;
+                head->next = NULL;
+                delete head;
+                size--;
+                return value;
+            }
+            prev = head;
+            head = head->next;
+        }
+        return 0;
     }
-    V getValue(string key) {}
+    V getValue(string key)
+    {
+        int bucketIndex = getBucketIndex(key);
+        MapNode<V> *head = buckets[bucketIndex];
+        while (head != NULL)
+        {
+            if (head->key == key)
+            {
+                return head->value;
+            }
+            head = head->next;
+        }
+        return 0;
+    }
 };
