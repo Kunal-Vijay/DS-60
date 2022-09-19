@@ -70,6 +70,59 @@ int pairSum0(int *a, int size)
     return pairCount;
 }
 
+// Problem 5 - Longest consecutive sequence
+vector<int> LongestConsecutive(int *a, int size)
+{
+    vector<int> output;
+    unordered_map<int, bool> map1;
+    for (int i = 0; i < size; i++)
+    {
+        map1[a[i]] = true;
+    }
+    int maxLength = 0;
+    int start = 0;
+    int length = 0;
+    int SeqStart;
+    int SeqEnd;
+    for (int i = 0; i < size; i++)
+    {
+        if (map1.count(a[i]) > 0 && map1[a[i]] == true)
+        {
+
+            start = a[i];
+            length++;
+            map1[a[i]] = false;
+            int k = a[i] - 1;
+            while (map1.count(k) > 0 && map1[k] == true)
+            {
+                start = k;
+                length++;
+                map1[k] = false;
+                k--;
+            }
+            int j = a[i] + 1;
+            while (map1[j] == true)
+            {
+                length++;
+                map1[j] = false;
+                j++;
+            }
+            if (length > maxLength)
+            {
+                maxLength = length;
+                SeqStart = start;
+                SeqEnd = start + maxLength - 1;
+            }
+            length = 0;
+        }
+    }
+    if (SeqStart)
+        output.push_back(SeqStart);
+    if (SeqEnd)
+        output.push_back(SeqEnd);
+    return output;
+}
+
 int main()
 {
     int size;
@@ -97,5 +150,11 @@ int main()
     // }
     // arrayIntersection(a,size,a2,size2);
 
-    cout << pairSum0(a, size) << endl;
+    // cout << pairSum0(a, size) << endl;
+
+    vector<int> output = LongestConsecutive(a, size);
+    for (int i = 0; i < output.size(); i++)
+    {
+        cout << output[i] << " ";
+    }
 }
