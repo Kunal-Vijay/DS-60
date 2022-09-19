@@ -123,6 +123,29 @@ vector<int> LongestConsecutive(int *a, int size)
     return output;
 }
 
+// Problem 6 - Pair with difference k
+int pairDifferenceK(int *a, int size, int k)
+{
+    unordered_map<int, int> map1;
+    int pairCount = 0;
+    for (int i = 0; i < size; i++)
+    {
+        map1[a[i]]++;
+        if (map1.count(k - a[i]) > 0)
+        {
+            pairCount += map1[k - a[i]];
+        }
+        if (map1.count(a[i] - k) > 0)
+        {
+            pairCount += map1[a[i] - k];
+        }
+        if (k == 0)
+        {
+            pairCount--;     // self pair 
+        }
+    }
+    return pairCount;
+}
 int main()
 {
     int size;
@@ -139,7 +162,6 @@ int main()
     // }
 
     // cout << maxFrequency(a, size) << endl;
-    // return 0;
 
     // int size2;
     // cin >> size2;
@@ -152,9 +174,13 @@ int main()
 
     // cout << pairSum0(a, size) << endl;
 
-    vector<int> output = LongestConsecutive(a, size);
-    for (int i = 0; i < output.size(); i++)
-    {
-        cout << output[i] << " ";
-    }
+    // vector<int> output = LongestConsecutive(a, size);
+    // for (int i = 0; i < output.size(); i++)
+    // {
+    //     cout << output[i] << " ";
+    // }
+    int k;
+    cin >> k;
+    cout << pairDifferenceK(a, size, k) << endl;
+    return 0;
 }
