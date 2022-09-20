@@ -141,10 +141,34 @@ int pairDifferenceK(int *a, int size, int k)
         }
         if (k == 0)
         {
-            pairCount--;     // self pair 
+            pairCount--; // self pair
         }
     }
     return pairCount;
+}
+
+// Problem 7 - Longest subset zero sum
+int LongestSubsetSum0(int *a, int size)
+{
+    unordered_map<int, int> map;
+    int max = 0;
+    int sum = 0;
+    for (int i = 0; i < size; i++)
+    {
+        sum += a[i];
+        if (map.count(sum) > 0)
+        {
+            if (max < (i - map[sum]))
+            {
+                max = i - map[sum];
+            }
+        }
+        else
+        {
+            map.insert({sum, i});
+        }
+    }
+    return max;
 }
 int main()
 {
@@ -179,8 +203,10 @@ int main()
     // {
     //     cout << output[i] << " ";
     // }
-    int k;
-    cin >> k;
-    cout << pairDifferenceK(a, size, k) << endl;
+    // int k;
+    // cin >> k;
+    // cout << pairDifferenceK(a, size, k) << endl;
+
+    cout << LongestSubsetSum0(a, size) << endl;
     return 0;
 }
