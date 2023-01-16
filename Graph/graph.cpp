@@ -83,6 +83,42 @@ void BFSdisconnected(int **edges, int n)
     delete[] visited;
 }
 
+bool hasPath(int **edges, int n, int sv, int ev)
+{
+    queue<int> pendingVertices;
+    bool *visited = new bool[n];
+    for (int i = 0; i < n; i++)
+    {
+        visited[i] = false;
+    }
+    pendingVertices.push(sv);
+    visited[sv] = true;
+    while (!pendingVertices.empty())
+    {
+        int currentVertex = pendingVertices.front();
+        pendingVertices.pop();
+        if (currentVertex == ev)
+        {
+            delete[] visited;
+            return true;
+        }
+        for (int i = 0; i < n; i++)
+        {
+            if (i == currentVertex)
+            {
+                continue;
+            }
+            if (edges[currentVertex][i] == 1 && !visited[i])
+            {
+                pendingVertices.push(i);
+                visited[i] = true;
+            }
+        }
+    }
+    delete[] visited;
+    return false;
+}
+
 int main()
 {
     int n, e;
@@ -111,16 +147,18 @@ int main()
         visited[i] = false;
     }
 
-    cout << "DFS" << endl;
-    printDFS(edges, n, 0, visited);
-    cout << "BFS" << endl;
-    printBFS(edges, n, 0, visited);
+    // cout << "DFS" << endl;
+    // printDFS(edges, n, 0, visited);
+    // cout << "BFS" << endl;
+    // printBFS(edges, n, 0, visited);
 
-    // disconnected graphs
-    cout << "DFS" << endl;
-    DFSdisconnected(edges, n);
-    cout << "BFS" << endl;
-    BFSdisconnected(edges, n);
+    // // disconnected graphs
+    // cout << "DFS" << endl;
+    // DFSdisconnected(edges, n);
+    // cout << "BFS" << endl;
+    // BFSdisconnected(edges, n);
+
+    cout << "has path from 0 to 7:- " << hasPath(edges, n, 0, 7);
 
     return 0;
 }
