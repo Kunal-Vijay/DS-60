@@ -148,10 +148,60 @@ vector<int> getPathDFS(int **edges, int n, int sv, int ev, bool *visited)
                 }
                 ans = getPathDFS(edges, n, i, ev, visited);
             }
-            if (!ans.empty()&&sv!=ans[ans.size()-1])
+            if (!ans.empty() && sv != ans[ans.size() - 1])
             {
                 ans.push_back(sv);
             }
+        }
+    }
+    return ans;
+}
+
+vector<int> getPathBFS(int **edges, int n, int sv, int ev, bool *visited)
+{
+    vector<int> ans;
+    queue<int> pendingVertices;
+    unordered_map<int, int> ump;
+    pendingVertices.push(sv);
+    visited[sv] = true;
+    while (!pendingVertices.empty())
+    {
+        int currentVertex = pendingVertices.front();
+        pendingVertices.pop();
+        for (int i = 0; i < n; i++)
+        {
+            if (i == currentVertex)
+            {
+                continue;
+            }
+            if (edges[currentVertex][i] == 1 && !visited[i])
+            {
+                pendingVertices.push(i);
+                ump[i] = currentVertex;
+                visited[i] = true;
+            }
+        }
+    }
+    int vertex = ev;
+    while (1)
+    {
+        if (vertex == sv)
+        {
+            ans.push_back(vertex);
+            break;
+        }
+        if (ump.count(vertex))
+        {
+            ans.push_back(vertex);
+            vertex = ump[vertex];
+        }
+        else
+        {
+            if (!ans.empty())
+            {
+                ans.push_back(vertex);
+            }
+            break;
         }
     }
     return ans;
@@ -198,7 +248,8 @@ int main()
 
     // cout << "has path from 0 to 7:- " << hasPath(edges, n, 0, 7);
 
-    vector<int> path = getPathDFS(edges, n, 0, 7, visited);
+    // vector<int> path = getPathDFS(edges, n, 0, 7, visited);
+    vector<int> path = getPathBFS(edges, n, 0, 7, visited);
     for (int i = 0; i < path.size(); i++)
     {
         cout << path[i] << " ";
