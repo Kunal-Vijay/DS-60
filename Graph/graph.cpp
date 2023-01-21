@@ -119,6 +119,44 @@ bool hasPath(int **edges, int n, int sv, int ev)
     return false;
 }
 
+vector<int> getPathDFS(int **edges, int n, int sv, int ev, bool *visited)
+{
+    vector<int> ans;
+    for (int i = 0; i < ans.size(); i++)
+    {
+        cout << ans[i] << " ";
+    }
+    if (sv == ev)
+    {
+        visited[ev] = true;
+        ans.push_back(ev);
+    }
+    else
+    {
+        visited[sv] = true;
+        for (int i = 0; i < n; i++)
+        {
+            if (i == sv)
+            {
+                continue;
+            }
+            if (edges[sv][i] == 1)
+            {
+                if (visited[i])
+                {
+                    continue;
+                }
+                ans = getPathDFS(edges, n, i, ev, visited);
+            }
+            if (!ans.empty()&&sv!=ans[ans.size()-1])
+            {
+                ans.push_back(sv);
+            }
+        }
+    }
+    return ans;
+}
+
 int main()
 {
     int n, e;
@@ -158,7 +196,13 @@ int main()
     // cout << "BFS" << endl;
     // BFSdisconnected(edges, n);
 
-    cout << "has path from 0 to 7:- " << hasPath(edges, n, 0, 7);
+    // cout << "has path from 0 to 7:- " << hasPath(edges, n, 0, 7);
+
+    vector<int> path = getPathDFS(edges, n, 0, 7, visited);
+    for (int i = 0; i < path.size(); i++)
+    {
+        cout << path[i] << " ";
+    }
 
     return 0;
 }
