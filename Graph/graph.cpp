@@ -207,6 +207,40 @@ vector<int> getPathBFS(int **edges, int n, int sv, int ev, bool *visited)
     return ans;
 }
 
+// is connected
+void helperDFS(int **edges, int n, int sv, bool *visited)
+{
+    visited[sv] = true;
+    for (int i = 0; i < n; i++)
+    {
+        if (i == sv)
+        {
+            continue;
+        }
+        if (edges[sv][i] == 1)
+        {
+            if (visited[i])
+            {
+                continue;
+            }
+            helperDFS(edges, n, i, visited);
+        }
+    }
+}
+
+bool isConnected(int **edges, int n, bool *visited)
+{
+    helperDFS(edges, n, 0, visited);
+    for (int i = 0; i < n; i++)
+    {
+        if (!visited[i])
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
 int main()
 {
     int n, e;
@@ -249,12 +283,13 @@ int main()
     // cout << "has path from 0 to 7:- " << hasPath(edges, n, 0, 7);
 
     // vector<int> path = getPathDFS(edges, n, 0, 7, visited);
-    vector<int> path = getPathBFS(edges, n, 0, 7, visited);
-    for (int i = 0; i < path.size(); i++)
-    {
-        cout << path[i] << " ";
-    }
+    // vector<int> path = getPathBFS(edges, n, 0, 7, visited);
+    // for (int i = 0; i < path.size(); i++)
+    // {
+    //     cout << path[i] << " ";
+    // }
 
+    cout << isConnected(edges, n, visited);
     return 0;
 }
 
