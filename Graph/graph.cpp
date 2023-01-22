@@ -241,6 +241,49 @@ bool isConnected(int **edges, int n, bool *visited)
     return true;
 }
 
+// all components of a graph
+void connectedComponent(int **edges, int n, int sv, bool *visited, vector<int> &component)
+{
+    component.push_back(sv);
+    visited[sv] = true;
+    for (int i = 0; i < n; i++)
+    {
+        if (i == sv)
+        {
+            continue;
+        }
+        if (edges[sv][i] == 1)
+        {
+            if (visited[i])
+            {
+                continue;
+            }
+            connectedComponent(edges, n, i, visited, component);
+        }
+    }
+}
+vector<vector<int>> allComponents(int **edges, int n)
+{
+    vector<vector<int>> ans;
+    bool *visited = new bool[n];
+    // initializing all nodes univisited
+    for (int i = 0; i < n; i++)
+    {
+        visited[i] = false;
+    }
+    for (int i = 0; i < n; i++)
+    {
+        if (!visited[i])
+        {
+            vector<int> component;
+            connectedComponent(edges, n, i, visited, component);
+            ans.push_back(component);
+        }
+    }
+    delete[] visited;
+    return ans;
+}
+
 int main()
 {
     int n, e;
@@ -289,7 +332,18 @@ int main()
     //     cout << path[i] << " ";
     // }
 
-    cout << isConnected(edges, n, visited);
+    // cout << isConnected(edges, n, visited);
+
+    vector<vector<int>> allConnectedComponents = allComponents(edges,n);
+    for (int i = 0; i < allConnectedComponents.size(); i++)
+    {
+        for (int j = 0; j < allConnectedComponents[i].size(); j++)
+        {
+            cout<<allConnectedComponents[i][j]<<" ";
+        }
+        cout<<endl;
+    }
+    
     return 0;
 }
 
