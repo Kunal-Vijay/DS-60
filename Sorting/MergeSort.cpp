@@ -1,77 +1,62 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void merge(int A[], int low, int mid, int high)
+void merge(int arr[], int s, int mid, int e)
 {
-    int n1 = mid - low + 1;
-    int n2 = high - mid;
-
-    int a[n1];
-    int b[n2]; // temporary arrays
-
-    for (int i = 0; i < n1; i++)
+    int size=e - s + 1;
+    int merged[size];
+    int idx1 = s;
+    int idx2 = mid + 1;
+    int i = 0;
+    while (idx1 <= mid && idx2 <= e)
     {
-        a[i] = A[low + i];
-    }
-    for (int i = 0; i < n2; i++)
-    {
-        b[i] = A[mid + 1 + i];
-    }
-
-    int i=0;
-    int j=0;
-    int k = low;
-    while (i < n1 && j < n2)
-    {
-        if (a[i] < b[j])
+        if (arr[idx1] <= arr[idx2])
         {
-            A[k] = a[i];
-            k++, i++;
+            merged[i++] = arr[idx1++];
         }
         else
         {
-            A[k] = b[j];
-            k++, j++;
+            merged[i++] = arr[idx2++];
         }
     }
-    while (i < n1)
+    while (idx1 <= mid)
     {
-        A[k] = a[i];
-        k++, i++;
+        merged[i++] = arr[idx1++];
     }
-    while (j < n2)
+    while (idx2 <= e)
     {
-        A[k] = b[j];
-        k++, j++;
+        merged[i++] = arr[idx2++];
+    }
+
+    for (int i = 0, j = s; i < size; j++, i++)
+    {
+        arr[j] = merged[i];
     }
 }
 
-void mergeSort(int A[], int low, int high)
+void mergeSort(int arr[], int s, int e)
 {
-    if (low < high)
+    if (s >= e)
     {
-        int mid = (low + high) / 2;
-        mergeSort(A, low, mid);
-        mergeSort(A, mid + 1, high);
-        merge(A, low, mid, high);
+        return;
     }
-}
-void printArray(int *arr, int size)
-{
-    for (int i = 0; i < size; i++)
-    {
-        cout << arr[i] << " ";
-    }
-    cout << endl;
+    int mid = s + (e - s) / 2;
+
+    mergeSort(arr, s, mid);
+    mergeSort(arr, mid + 1, e);
+    merge(arr, s, mid, e);
 }
 
 int main()
 {
+    int arr[] = {6, 3, 9, 5, 2, 8};
+    int n = sizeof(arr)/sizeof(int);
+    mergeSort(arr, 0, n - 1);
 
-    int A[] = {1, 4, 2, 5, 3};
-    int n = 5;
-    printArray(A, n);
-    mergeSort(A, 0, n - 1);
-    printArray(A, n);
+    for (int i = 0; i < n; i++)
+    {
+        cout << arr[i] << " ";
+    }
+
     return 0;
 }
